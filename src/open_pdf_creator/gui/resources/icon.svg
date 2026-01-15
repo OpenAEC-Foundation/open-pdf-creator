@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background -->
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="#2563eb"/>
+
+  <!-- Document shape -->
+  <path d="M 16 10 L 16 54 L 48 54 L 48 22 L 36 10 Z" fill="white"/>
+
+  <!-- Folded corner -->
+  <path d="M 36 10 L 36 22 L 48 22 Z" fill="#93c5fd"/>
+
+  <!-- Arrow down (create/save) -->
+  <path d="M 32 28 L 32 44 M 24 38 L 32 46 L 40 38" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

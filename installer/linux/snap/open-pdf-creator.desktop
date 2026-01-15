@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Open PDF Creator
+Comment=Virtual PDF printer and PDF combiner
+Exec=open-pdf-creator
+Icon=${SNAP}/share/icons/hicolor/128x128/apps/open-pdf-creator.png
+Terminal=false
+Type=Application
+Categories=Office;Utility;Printing;
+Keywords=pdf;printer;merge;combine;convert;
+MimeType=application/pdf;

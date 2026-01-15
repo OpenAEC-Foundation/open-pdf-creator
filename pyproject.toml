@@ -1,0 +1,83 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "open-pdf-creator"
+version = "0.1.0"
+description = "Cross-platform virtual PDF printer and PDF combiner"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "OpenAEC Foundation", email = "info@openaec.org" }
+]
+keywords = ["pdf", "printer", "virtual printer", "pdf merger", "pdf combiner"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: X11 Applications :: Qt",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Printing",
+    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+]
+dependencies = [
+    "PySide6>=6.6",
+    "pypdf>=4.0",
+    "pikepdf>=8.0",
+    "Pillow>=10.0",
+    "platformdirs>=4.0",
+    "watchdog>=4.0",
+    "pdf2image>=1.16",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-qt>=4.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1",
+    "mypy>=1.0",
+]
+
+[project.scripts]
+open-pdf-creator = "open_pdf_creator.main:main"
+
+[project.gui-scripts]
+open-pdf-creator-gui = "open_pdf_creator.main:main"
+
+[project.urls]
+Homepage = "https://github.com/OpenAEC-Foundation/open-pdf-creator"
+Repository = "https://github.com/OpenAEC-Foundation/open-pdf-creator"
+Issues = "https://github.com/OpenAEC-Foundation/open-pdf-creator/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/open_pdf_creator"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4"]
+ignore = ["N802"]  # Allow camelCase for Qt event handlers
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+qt_api = "pyside6"

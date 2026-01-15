@@ -1,0 +1,75 @@
+name: open-pdf-creator
+version: '1.0.0'
+summary: Virtual PDF printer and PDF combiner
+description: |
+  Open PDF Creator is a virtual PDF printer that allows you to create PDF files 
+  from any application. Features include:
+  
+  - Virtual printer that appears in your system printer list
+  - Save As dialog when printing to choose output location
+  - PDF combiner with drag & drop support
+  - Reorder and rotate pages before merging
+  - Export to PDF, PNG, JPEG, or TIFF
+  
+  Similar to PDFCreator on Windows, but open source and cross-platform.
+
+base: core22
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: amd64
+
+apps:
+  open-pdf-creator:
+    command: bin/open-pdf-creator
+    desktop: share/applications/open-pdf-creator.desktop
+    extensions: [gnome]
+    plugs:
+      - home
+      - removable-media
+      - cups-control
+      - desktop
+      - desktop-legacy
+      - wayland
+      - x11
+      - opengl
+
+parts:
+  open-pdf-creator:
+    plugin: python
+    source: .
+    python-packages:
+      - PySide6
+      - pypdf
+      - pikepdf
+      - Pillow
+      - platformdirs
+      - pdf2image
+    stage-packages:
+      - poppler-utils
+      - ghostscript
+      - libxcb-cursor0
+    build-packages:
+      - python3-dev
+      - build-essential
+
+  desktop-file:
+    plugin: dump
+    source: installer/linux/snap/
+    organize:
+      open-pdf-creator.desktop: share/applications/open-pdf-creator.desktop
+      icon.png: share/icons/hicolor/128x128/apps/open-pdf-creator.png
+
+  cups-backend:
+    plugin: dump
+    source: src/open_pdf_creator/printer/linux/
+    organize:
+      cups_backend.py: cups-backend/open-pdf-creator
+    override-prime: |
+      craftctl default
+      chmod 755 $CRAFT_PRIME/cups-backend/open-pdf-creator
+
+layout:
+  /usr/lib/cups/backend/open-pdf-creator:
+    symlink: $SNAP/cups-backend/open-pdf-creator
